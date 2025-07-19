@@ -17,8 +17,7 @@
     "baseUrl": ".",                         // <-- penting untuk paths
     "paths": {
       "@/*": ["./src/*", "./sanity/*"]  
-         
-                     // <-- alias import
+        
     },
     "plugins": [
       {
