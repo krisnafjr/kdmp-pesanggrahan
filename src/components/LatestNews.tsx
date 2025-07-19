@@ -18,17 +18,13 @@ type Berita = {
 
 // 2. Fungsi untuk mengambil data dari Sanity
 async function getLatestNews() {
-    // Ambil 4 berita terbaru, diurutkan berdasarkan tanggal publikasi
-    const query = `*[_type == "berita"] | order(tanggalPublikasi desc)[0...4] {
-        _id,
-        judul,
-        slug,
-        excerpt,
-        tanggalPublikasi,
-        gambarUtama
-    }`;
+    const query = `*[_type == "berita"] | order(tanggalPublikasi desc)[0...4] { ... }`;
 
-    const data: Berita[] = await client.fetch(query);
+    const data: Berita[] = await client.fetch(
+        query,
+        {},
+        { next: { tags: ['berita'] } } // <-- PASTIKAN INI ADA
+    );
     return data;
 }
 
