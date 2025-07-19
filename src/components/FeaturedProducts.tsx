@@ -1,31 +1,46 @@
-// src/components/FeaturedProducts.tsx
-
 import Image from "next/image";
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
-// Data produk (bisa Anda ganti dengan produk nyata dari Koperasi)
-const products = [
-    {
-        category: "Pangan",
-        name: "Bakpia Pak Rohman",
-        description: "Beras berkualitas tinggi yang ditanam secara alami tanpa pestisida, menjaga kearifan lokal.",
-        image: "/Bakpia_Arrohman.jpg", // Ganti dengan nama file gambar Anda
-    },
-    {
-        category: "Pangan",
-        name: "Kerupuk Tengiri : Primadona Baru di Pesanggrahan",
-        description: "Kerajinan tangan unik dengan motif khas yang terinspirasi dari warisan Kerajaan Majapahit.",
-        image: "/produk_kerupuk.jpg", // Ganti dengan nama file gambar Anda
-    },
-    {
-        category: "Produk",
-        name: "Pengusaha Batu Bata",
-        description: "Layanan keuangan yang mudah dan terpercaya untuk mendukung pertumbuhan usaha anggota.",
-        image: "/produk_batubata.jpg", // Ganti dengan nama file gambar Anda
-    },
-];
+// 1. Definisikan tipe data untuk produk dari Sanity
+type Produk = {
+    _id: string;
+    namaProduk: string;
+    slug: {
+        current: string;
+    };
+    deskripsi: string;
+    kategori: string;
+    gambarProduk: any;
+};
 
-export default function FeaturedProducts() {
+// 2. Fungsi untuk mengambil data produk dari Sanity
+async function getFeaturedProducts() {
+    // Ambil 3 produk terbaru, diurutkan dari tanggal dibuat
+    // Anda bisa mengubah logika ini, misalnya dengan menambahkan field "Unggulan"
+    const query = `*[_type == "produk"] | order(_createdAt desc)[0...3] {
+        _id,
+        namaProduk,
+        slug,
+        deskripsi,
+        kategori,
+        gambarProduk
+    }`;
+
+    const data: Produk[] = await client.fetch(query);
+    return data;
+}
+
+
+// 3. Ubah komponen menjadi 'async'
+export default async function FeaturedProducts() {
+    const products = await getFeaturedProducts();
+
+    if (!products || products.length === 0) {
+        return null; // Atau tampilkan pesan jika tidak ada produk
+    }
+
     return (
         <section className="bg-white py-20">
             <div className="container mx-auto px-6">
@@ -43,22 +58,26 @@ export default function FeaturedProducts() {
 
                 {/* Grid Kartu Produk */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {products.map((product, index) => (
-                        <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden group">
+                    {products.map((product) => (
+                        // Gunakan _id dari Sanity sebagai key unik
+                        <div key={product._id} className="bg-white rounded-xl shadow-lg overflow-hidden group">
                             <div className="relative w-full h-56">
                                 <Image
-                                    src={product.image}
-                                    alt={product.name}
-                                    layout="fill"
-                                    objectFit="cover"
+                                    // Gunakan urlFor untuk memproses gambar dari Sanity
+                                    src={urlFor(product.gambarProduk).url()}
+                                    alt={product.namaProduk}
+                                    fill
+                                    style={{objectFit: 'cover'}}
                                     className="transition-transform duration-500 group-hover:scale-110"
                                 />
                             </div>
                             <div className="p-6">
-                                <span className="text-sm font-semibold text-red-600">{product.category}</span>
-                                <h3 className="text-2xl font-bold text-gray-800 mt-2">{product.name}</h3>
-                                <p className="text-gray-600 mt-3 h-24">{product.description}</p>
-                                <Link href="/produk" className="inline-block mt-4 text-red-600 font-semibold hover:text-red-800 transition-colors">
+                                <span className="text-sm font-semibold text-red-600">{product.kategori}</span>
+                                <h3 className="text-2xl font-bold text-gray-800 mt-2">{product.namaProduk}</h3>
+                                {/* Batasi deskripsi agar layout tidak rusak */}
+                                <p className="text-gray-600 mt-3 h-24 overflow-hidden line-clamp-4">{product.deskripsi}</p>
+                                {/* Arahkan link ke halaman detail produk sesuai slug */}
+                                <Link href={`/produk/${product.slug.current}`} className="inline-block mt-4 text-red-600 font-semibold hover:text-red-800 transition-colors">
                                     Lihat Detail →
                                 </Link>
                             </div>
