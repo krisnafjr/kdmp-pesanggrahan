@@ -1,0 +1,57 @@
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import Image from "next/image";
+import { PortableText } from "@portabletext/react";
+
+type DetailBerita = {
+    judul: string;
+    tanggalPublikasi: string;
+    gambarUtama: any;
+    konten: any[]; // Tipe untuk Portable Text
+};
+
+// Fungsi untuk mengambil SATU berita berdasarkan slug
+async function getDetailBerita(slug: string) {
+    const query = `*[_type == "berita" && slug.current == $slug][0] {
+        judul,
+        tanggalPublikasi,
+        gambarUtama,
+        konten
+    }`;
+    const data: DetailBerita = await client.fetch(query, { slug });
+    return data;
+}
+
+export default async function HalamanDetailBerita({ params }: { params: { slug: string } }) {
+    const berita = await getDetailBerita(params.slug);
+
+    if (!berita) {
+        return <div>Berita tidak ditemukan.</div>;
+    }
+
+    return (
+        <article className="container mx-auto px-6 py-12 max-w-4xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">{berita.judul}</h1>
+            <p className="text-gray-500 mb-6">
+                Dipublikasikan pada {new Date(berita.tanggalPublikasi).toLocaleDateString('id-ID', {
+                    day: 'numeric', month: 'long', year: 'numeric'
+                })}
+            </p>
+            
+            <div className="relative w-full h-96 mb-8">
+                <Image 
+                    src={urlFor(berita.gambarUtama).url()} 
+                    alt={berita.judul} 
+                    fill 
+                    style={{objectFit: 'cover'}}
+                    className="rounded-lg"
+                />
+            </div>
+            
+            {/* Render Rich Text di sini */}
+            <div className="prose lg:prose-xl max-w-none">
+                <PortableText value={berita.konten} />
+            </div>
+        </article>
+    );
+}
