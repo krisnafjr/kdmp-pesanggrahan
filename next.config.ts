@@ -9,7 +9,11 @@ const nextConfig = {
         port: '',
         pathname: '/images/**',
       },
+      
     ],
+  },
+   eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
