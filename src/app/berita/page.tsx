@@ -21,7 +21,18 @@ async function getAllBerita() {
         tanggalPublikasi,
         gambarUtama
     }`;
-    const data: Berita[] = await client.fetch(query);
+    
+    // Tambahkan parameter kedua (kosong) dan ketiga (opsi next.js)
+    const data: Berita[] = await client.fetch(
+        query,
+        {}, // Parameter query (kosong dalam kasus ini)
+        { 
+            next: { 
+                tags: ['berita'] // Menandai data ini sebagai 'berita'
+            } 
+        }
+    );
+    
     return data;
 }
 
