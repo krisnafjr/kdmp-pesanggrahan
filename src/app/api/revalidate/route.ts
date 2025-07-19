@@ -1,8 +1,8 @@
+// app/api/revalidate/route.ts
 import { revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
 
-// Ambil revalidation secret dari environment variable
 const SANITY_WEBHOOK_SECRET = process.env.SANITY_WEBHOOK_SECRET;
 
 export async function POST(req: NextRequest) {
@@ -13,25 +13,26 @@ export async function POST(req: NextRequest) {
     );
 
     if (!isValidSignature) {
+      console.log('Webhook: Invalid signature');
       return new Response('Invalid Signature', { status: 401 });
     }
 
     if (!body?._type) {
-      return new Response('Bad Request', { status: 400 });
+      return new Response('Bad Request: Missing _type in body', { status: 400 });
     }
 
-    // Revalidate data berdasarkan tag (tipe konten)
+    // Revalidate berdasarkan tipe konten (e.g., 'berita', 'produk')
     revalidateTag(body._type);
 
     return NextResponse.json({
       status: 200,
       revalidated: true,
       now: Date.now(),
-      body,
+      type: body._type,
     });
 
   } catch (error: any) {
-    console.error(error);
+    console.error('Error in revalidate webhook:', error);
     return new Response(error.message, { status: 500 });
   }
 }
