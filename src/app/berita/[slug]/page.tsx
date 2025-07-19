@@ -2,18 +2,53 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
+// Tipe untuk data yang diambil
 type DetailBerita = {
+    _id: string;
     judul: string;
+    excerpt: string;
     tanggalPublikasi: string;
     gambarUtama: any;
-    konten: any[]; // Tipe untuk Portable Text
+    konten: any[];
 };
 
-// Fungsi untuk mengambil SATU berita berdasarkan slug
-async function getDetailBerita(slug: string) {
+// Fungsi untuk mengambil data HANYA untuk metadata
+async function getBeritaForMetadata(slug: string) {
     const query = `*[_type == "berita" && slug.current == $slug][0] {
         judul,
+        excerpt
+    }`;
+    const data = await client.fetch(query, { slug });
+    return data;
+}
+
+// ====================================================================
+// ✨ BAGIAN YANG DIPERBAIKI: Tambahkan fungsi generateMetadata ini
+// ====================================================================
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+    const berita = await getBeritaForMetadata(params.slug);
+
+    if (!berita) {
+        return {
+            title: "Berita Tidak Ditemukan",
+        };
+    }
+
+    return {
+        title: `${berita.judul} | Koperasi Merah Putih`,
+        description: berita.excerpt,
+    };
+}
+
+// Fungsi untuk mengambil data LENGKAP untuk halaman
+async function getDetailBerita(slug: string) {
+    const query = `*[_type == "berita" && slug.current == $slug][0] {
+        _id,
+        judul,
+        excerpt,
         tanggalPublikasi,
         gambarUtama,
         konten
@@ -25,8 +60,11 @@ async function getDetailBerita(slug: string) {
 export default async function HalamanDetailBerita({ params }: { params: { slug: string } }) {
     const berita = await getDetailBerita(params.slug);
 
+    // ===============================================================
+    // ✨ BAGIAN YANG DIPERBAIKI: Gunakan notFound() untuk error
+    // ===============================================================
     if (!berita) {
-        return <div>Berita tidak ditemukan.</div>;
+        notFound();
     }
 
     return (
