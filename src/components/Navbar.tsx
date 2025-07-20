@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { SanityDocument } from "next-sanity";
 import Image from "next/image";
 
 // Ikon untuk Hamburger Menu
 const MenuIcon = () => ( <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg> );
 const CloseIcon = () => ( <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg> );
 
-export default function Navbar({ settings }: { settings: SanityDocument }) {
+// Navbar tidak lagi menerima props { settings }
+export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
@@ -20,7 +20,7 @@ export default function Navbar({ settings }: { settings: SanityDocument }) {
         { href: "/", label: "Home" },
         { href: "/produk", label: "Produk" },
         { href: "/berita", label: "Berita" },
-         { href: "/tentang-kami", label: "Tentang Kami" },
+        { href: "/tentang-kami", label: "Tentang Kami" },
     ];
 
     useEffect(() => {
@@ -45,17 +45,18 @@ export default function Navbar({ settings }: { settings: SanityDocument }) {
                 <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
                     <Link href="/" className="flex items-center gap-2.5">
                         <Image 
-                            src="/kutorejo.png" // <-- MENGAMBIL LOGO DARI FOLDER /public
+                            src="/kutorejo.png" // Mengambil logo dari folder /public
                             width={40} 
                             height={40} 
                             alt="Logo Koperasi"
                             className="transition-transform duration-300 hover:scale-110"
                         />
-                        <span className={`text-xl font-semibold transition-colors duration-300 ${scrolled || pathname !== '/' ? 'text-slate-800' : 'text-white'}`}>
-                            {settings?.judulSitus || 'KMP Pesanggrahan'}
+                        <span className={`text-l font-semibold transition-colors duration-300 ${scrolled || pathname !== '/' ? 'text-slate-800' : 'text-white'}`}>
+                            KMP Pesanggrahan {/* Judul di-hardcode langsung di sini */}
                         </span>
                     </Link>
 
+                    {/* Sisa kode navigasi desktop dan mobile tetap sama */}
                     <div className="hidden md:flex items-center gap-8">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href;
