@@ -1,70 +1,51 @@
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
-import Image from "next/image";
-import Link from "next/link";
+import { Metadata } from "next";
+import BeritaList from "@/components/BeritaList";
 
-// Definisikan tipe datanya
 type Berita = {
     _id: string;
     judul: string;
     slug: { current: string };
     tanggalPublikasi: string;
     gambarUtama: any;
+    excerpt: string;
 };
 
-// Fungsi untuk mengambil SEMUA berita
+// Perbarui query untuk mengambil 'excerpt'
 async function getAllBerita() {
     const query = `*[_type == "berita"] | order(tanggalPublikasi desc) {
-        _id,
-        judul,
-        slug,
-        tanggalPublikasi,
-        gambarUtama
+        _id, judul, slug, tanggalPublikasi, gambarUtama, excerpt
     }`;
-    
-    // Tambahkan parameter kedua (kosong) dan ketiga (opsi next.js)
     const data: Berita[] = await client.fetch(
-        query,
-        {}, // Parameter query (kosong dalam kasus ini)
-        { 
-            next: { 
-                tags: ['berita'] // Menandai data ini sebagai 'berita'
-            } 
-        }
+        query, {}, { next: { tags: ['berita'] } }
     );
-    
     return data;
 }
+
+export const metadata: Metadata = {
+    title: "Arsip Berita | Koperasi Merah Putih",
+    description: "Kumpulan berita dan kegiatan terbaru dari Koperasi Merah Putih.",
+};
 
 export default async function HalamanDaftarBerita() {
     const semuaBerita = await getAllBerita();
 
     return (
-        <main className="container mx-auto px-6 py-12">
-            <h1 className="text-4xl font-bold mb-8">Arsip Berita</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {semuaBerita.map((item) => (
-                    <Link href={`/berita/${item.slug.current}`} key={item._id}>
-                        <div className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-                            <div className="relative w-full h-48">
-                                <Image 
-                                    src={urlFor(item.gambarUtama).url()} 
-                                    alt={item.judul} 
-                                    fill 
-                                    style={{objectFit: 'cover'}} 
-                                />
-                            </div>
-                            <div className="p-4">
-                                <h2 className="text-xl font-semibold mb-2 line-clamp-2">{item.judul}</h2>
-                                <p className="text-gray-600 text-sm">
-                                    {new Date(item.tanggalPublikasi).toLocaleDateString('id-ID', {
-                                        day: 'numeric', month: 'long', year: 'numeric'
-                                    })}
-                                </p>
-                            </div>
-                        </div>
-                    </Link>
-                ))}
+        // Gunakan padding yang lebih proporsional
+        <main className="bg-white">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+                <div className="text-center mb-16">
+                    <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">Arsip Berita</h1>
+                    <p className="max-w-2xl mx-auto mt-4 text-lg text-slate-600">
+                        Ikuti semua perkembangan terbaru dari kegiatan dan program kami.
+                    </p>
+                </div>
+                
+                {semuaBerita.length > 0 ? (
+                    <BeritaList semuaBerita={semuaBerita} />
+                ) : (
+                    <p className="text-center text-gray-500">Belum ada berita untuk ditampilkan.</p>
+                )}
             </div>
         </main>
     );
