@@ -1,5 +1,4 @@
-// schemas/produk.js
-import {Rule} from 'sanity' // <-- 1. Impor tipe Rule
+import {Rule} from 'sanity'
 
 export default {
   name: 'produk',
@@ -10,7 +9,6 @@ export default {
       name: 'namaProduk',
       title: 'Nama Produk',
       type: 'string',
-      // 2. Terapkan tipe pada parameter Rule
       validation: (Rule: Rule) => Rule.required(),
     },
     {
@@ -28,18 +26,9 @@ export default {
       title: 'Gambar Produk',
       type: 'image',
       options: {
-        hotspot: true,
+        hotspot: true, // Memungkinkan cropping yang lebih baik
       },
-    },
-    {
-      name: 'deskripsi',
-      title: 'Deskripsi',
-      type: 'text',
-    },
-    {
-      name: 'harga',
-      title: 'Harga',
-      type: 'number',
+       validation: (Rule: Rule) => Rule.required(),
     },
     {
       name: 'kategori',
@@ -47,13 +36,27 @@ export default {
       type: 'string',
       options: {
         list: [
-          {title: 'Simpanan', value: 'simpanan'},
-          {title: 'Pinjaman', value: 'pinjaman'},
-          {title: 'Sembako', value: 'sembako'},
+          {title: 'Pangan', value: 'pangan'},
+          {title: 'Kerajinan', value: 'kerajinan'},
+          {title: 'Jasa', value: 'jasa'},
+          {title: 'Lainnya', value: 'lainnya'},
         ],
         layout: 'radio',
-      }
-    }
+      },
+      validation: (Rule: Rule) => Rule.required(),
+    },
+    {
+      name: 'harga',
+      title: 'Harga',
+      type: 'number',
+    },
+    {
+      name: 'deskripsi',
+      title: 'Deskripsi Produk',
+      type: 'text', // Gunakan 'text' untuk deskripsi sederhana
+      rows: 4,
+       validation: (Rule: Rule) => Rule.required(),
+    },
   ],
   preview: {
     select: {
