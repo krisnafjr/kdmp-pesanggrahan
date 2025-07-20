@@ -96,9 +96,10 @@ export default function Hero() {
                         Tentang Desa →
                     </Link>
                     <Link 
-                        href="/hubungi-kami" 
-                        className="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg shadow-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 flex items-center"
-                    >
+                        href="https://wa.me/6281216080845?text=Halo,%20saya%20ingin%20bertanya%20tentang%20Desa%20Pesanggrahan." 
+                        target="_blank" // Membuka di tab baru, penting untuk WhatsApp Web
+                        rel="noopener noreferrer" // Praktik keamanan untuk link eksternal
+                        className="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg shadow-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 flex items-center">
                         <PhoneIcon />
                         Hubungi Kami
                     </Link>

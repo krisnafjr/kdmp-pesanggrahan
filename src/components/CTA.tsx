@@ -21,7 +21,9 @@ export default function CTA() {
           Jadilah bagian dari keluarga besar Koperasi Merah Putih dan rasakan manfaatnya secara langsung. Mari majukan ekonomi Desa Pesanggrahan bersama-sama.
         </p>
         <Link 
-          href="/cara-bergabung" 
+           href="https://wa.me/6281216080845?text=Halo,%20saya%20ingin%20bertanya%20tentang%20Desa%20Pesanggrahan." 
+                        target="_blank" // Membuka di tab baru, penting untuk WhatsApp Web
+                        rel="noopener noreferrer" // Praktik keamanan untuk link eksternal
           className="px-8 py-4 bg-red-600 text-white font-bold text-lg rounded-lg shadow-lg hover:bg-red-700 transition-all duration-300 transform hover:scale-105"
         >
           Daftar Jadi Anggota

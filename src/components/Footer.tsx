@@ -59,7 +59,7 @@ export default function Footer() {
                             </li>
                             <li className="flex items-center">
                                 <span className="mr-2">✉️</span>
-                                <span>kontak@koperasimerahputih.id</span>
+                                <span>kdmppesanggrahan17@gmail.com</span>
                             </li>
                         </ul>
                     </div>
