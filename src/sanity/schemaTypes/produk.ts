@@ -46,11 +46,6 @@ export default {
       validation: (Rule: Rule) => Rule.required(),
     },
     {
-      name: 'harga',
-      title: 'Harga',
-      type: 'number',
-    },
-    {
       name: 'deskripsi',
       title: 'Deskripsi Produk',
       type: 'text', // Gunakan 'text' untuk deskripsi sederhana

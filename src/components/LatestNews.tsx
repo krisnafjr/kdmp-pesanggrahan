@@ -53,9 +53,12 @@ export default async function LatestNews() {
         <section className="bg-white py-20">
             <div className="container mx-auto px-6">
                 
-                {/* Judul Bagian */}
-                <div className="mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-800">
+             {/* Judul Bagian */}
+                <div className=" mb-12">
+                    <span className="text-sm font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                        Berita Terbaru
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-4">
                         Berita & Kegiatan Terbaru
                     </h2>
                     <p className="text-lg text-gray-500 mt-2">
@@ -63,6 +66,7 @@ export default async function LatestNews() {
                     </p>
                     <div className="mt-4 w-24 h-1.5 bg-red-600 rounded-full"></div>
                 </div>
+
 
                 {/* Grid Layout Editorial */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">

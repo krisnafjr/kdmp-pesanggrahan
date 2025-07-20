@@ -45,10 +45,14 @@ export default async function FeaturedProducts() {
         <section className="bg-white py-20">
             <div className="container mx-auto px-6">
 
-                {/* Judul Bagian */}
+                
+             {/* Judul Bagian */}
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-800">
-                        Produk & Layanan Unggulan
+                    <span className="text-sm font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                        Kegiatan Usaha
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-4">
+                        Kegitan Usaha
                     </h2>
                     <p className="text-lg text-gray-500 mt-2">
                         Inilah hasil karya dan layanan terbaik dari anggota Koperasi Merah Putih.

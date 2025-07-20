@@ -27,10 +27,10 @@ const ProgramIcon = () => (
 );
 
 const statsData = [
-    { icon: <UsersIcon />, value: "1,250", label: "Total Anggota" },
-    { icon: <BusinessIcon />, value: "15", label: "Unit Usaha" },
-    { icon: <ProductIcon />, value: "50+", label: "Produk Unggulan" },
-    { icon: <ProgramIcon />, value: "8", label: "Program Pemberdayaan" },
+    { icon: <UsersIcon />, value: "45", label: "Total Anggota" },
+    { icon: <BusinessIcon />, value: "0", label: "Unit Usaha" },
+    { icon: <ProductIcon />, value: "0", label: "Produk Unggulan" },
+    { icon: <ProgramIcon />, value: "0", label: "Program Pemberdayaan" },
 ];
 
 export default function Stats() {

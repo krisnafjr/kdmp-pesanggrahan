@@ -8,19 +8,19 @@ const testimonials = [
         name: "Bapak Sutrisno",
         role: "Anggota Petani",
         quote: "Sejak bergabung dengan koperasi, saya tidak pernah kesulitan mendapatkan pupuk dan bibit unggul. Hasil panen saya meningkat dan harganya pun stabil. Terima kasih Koperasi Merah Putih!",
-        image: "/avatar-1.jpg", // Ganti dengan nama file gambar Anda
+        image: "/profile.png", // Ganti dengan nama file gambar Anda
     },
     {
         name: "Ibu Hartini",
         role: "Pengrajin & Anggota UMKM",
         quote: "Koperasi benar-benar membantu saya dalam pemasaran. Produk anyaman saya sekarang bisa dikenal lebih luas. Pelatihan yang diberikan juga sangat bermanfaat.",
-        image: "/avatar-2.jpg", // Ganti dengan nama file gambar Anda
+        image: "/woman.png", // Ganti dengan nama file gambar Anda
     },
     {
         name: "Andi Wijaya",
         role: "Anggota Simpan Pinjam",
         quote: "Proses pinjaman modal usaha di sini sangat mudah dan bunganya ringan. Berkat koperasi, warung kelontong saya bisa berkembang pesat seperti sekarang.",
-        image: "/avatar-3.jpg", // Ganti dengan nama file gambar Anda
+        image: "/profile.png", // Ganti dengan nama file gambar Anda
     },
 ];
 
@@ -37,9 +37,12 @@ export default function Testimonials() {
         <section className="bg-gray-50 py-20">
             <div className="container mx-auto px-6">
 
-                {/* Judul Bagian */}
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-800">
+                  {/* Judul Bagian */}
+                <div className="text-center mb-12">
+                    <span className="text-sm font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                        Testimonial
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-4">
                         Apa Kata Anggota Kami?
                     </h2>
                     <p className="text-lg text-gray-500 mt-2">
@@ -47,6 +50,8 @@ export default function Testimonials() {
                     </p>
                     <div className="mt-4 w-24 h-1.5 bg-red-600 mx-auto rounded-full"></div>
                 </div>
+
+                
 
                 {/* Grid Kartu Testimoni */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

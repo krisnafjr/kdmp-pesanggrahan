@@ -50,11 +50,7 @@ export default async function HalamanDaftarProduk() {
                             </div>
                             <div className="p-4">
                                 <h2 className="text-lg font-bold text-gray-800 truncate">{produk.namaProduk}</h2>
-                                {produk.harga && (
-                                    <p className="text-md text-red-600 mt-1">
-                                        Rp {produk.harga.toLocaleString('id-ID')}
-                                    </p>
-                                )}
+    
                             </div>
                         </div>
                     </Link>

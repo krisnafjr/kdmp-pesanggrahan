@@ -85,31 +85,31 @@ export default async function TentangKamiPage() {
 
          {/* Ganti bagian Section Pengurus Desa dengan kode ini */}
 
-<section className="bg-gray-50 py-16">
-    <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Struktur Pengurus</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            {data.pengurus?.filter(Boolean).map((orang: any, index: number) => (
-                // Tambahkan pengecekan apakah 'orang.gambar' ada sebelum me-render
-                orang.gambar && (
-                    <div key={orang.nama || index} className="text-center">
-                        <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden shadow-md">
-                            <Image 
-                                src={urlFor(orang.gambar).url()} 
-                                alt={orang.nama} 
-                                fill 
-                                style={{objectFit: 'cover'}} 
-                            />
-                        </div>
-                        <h3 className="mt-4 font-semibold text-gray-800">{orang.nama}</h3>
-                        {/* Tambahkan jabatan jika ada */}
-                        {orang.jabatan && <p className="text-sm text-gray-500">{orang.jabatan}</p>}
-                    </div>
-                )
-            ))}
-        </div>
-    </div>
-</section>
+        <section className="bg-gray-50 py-16">
+            <div className="container mx-auto px-6">
+                <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Struktur Pengurus</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                    {data.pengurus?.filter(Boolean).map((orang: any, index: number) => (
+                        // Tambahkan pengecekan apakah 'orang.gambar' ada sebelum me-render
+                        orang.gambar && (
+                            <div key={orang.nama || index} className="text-center">
+                                <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden shadow-md">
+                                    <Image 
+                                        src={urlFor(orang.gambar).url()} 
+                                        alt={orang.nama} 
+                                        fill 
+                                        style={{objectFit: 'cover'}} 
+                                    />
+                                </div>
+                                <h3 className="mt-4 font-semibold text-gray-800">{orang.nama}</h3>
+                                {/* Tambahkan jabatan jika ada */}
+                                {orang.jabatan && <p className="text-sm text-gray-500">{orang.jabatan}</p>}
+                            </div>
+                        )
+                    ))}
+                </div>
+            </div>
+        </section>
         </main>
     );
 }

@@ -24,7 +24,7 @@ export default function About() {
                 {/* Layout Dua Kolom */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Kolom Gambar */}
-                    <div className="w-full h-80 relative rounded-2xl shadow-2xl overflow-hidden">
+                    <div className="w-full h-100 relative rounded-2xl shadow-2xl overflow-hidden">
                         <Image
                             src="/about.jpg"
                             alt="Kegiatan Anggota Koperasi Merah Putih"
@@ -37,11 +37,15 @@ export default function About() {
                     {/* Kolom Teks */}
                     <div>
                         <h3 className="text-3xl font-semibold text-gray-800">
-                            Sejarah & Visi Kami
+                            Sejarah Koperasi Merah Putih
                         </h3>
                         <div className="mt-2 mb-4 w-16 h-1 bg-red-600 rounded-full"></div>
                         <p className="text-gray-600 leading-relaxed">
-                            Koperasi Merah Putih didirikan atas semangat gotong royong dan keinginan untuk membangun kemandirian ekonomi masyarakat. Berawal dari sekelompok kecil petani dan pengrajin, kami berkembang menjadi komunitas yang kuat dengan nilai-nilai kebersamaan yang masih terjaga hingga saat ini.
+                           Pembentukan Koperasi Desa/Kelurahan Merah Putih didorong oleh kebutuhan untuk meningkatkan kesejahteraan ekonomi masyarakat desa melalui pendekatan ekonomi kerakyatan yang berbasis pada prinsip gotong royong, kekeluargaan, dan saling membantu.
+
+                            Dalam retreat kepala daerah di Akmil Magelang pada 21-28 Februari 2025, Presiden Prabowo menekankan pentingnya pembentukan Koperasi Desa sebagai upaya untuk meningkatkan ketahanan pangan.
+
+                            Pada Rapat Terbatas di Istana Negara pada 3 Maret 2025, Presiden Prabowo menginstruksikan pembentukan Koperasi Desa/Kelurahan Merah Putih di seluruh Indonesia. Hal ini bertujuan untuk memperkuat ekonomi lokal, meningkatkan kesejahteraan petani, dan mendukung UMKM di desa-desa.
                         </p>
                         <p className="text-gray-600 leading-relaxed mt-4">
                             Kini, Koperasi Merah Putih terus berinovasi dengan berbagai program pembangunan berkelanjutan yang berfokus pada kesejahteraan anggota dan pelestarian nilai-nilai luhur bangsa.

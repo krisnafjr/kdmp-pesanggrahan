@@ -1,64 +1,63 @@
-// src/components/Hero.tsx
-"use client"; // Diperlukan untuk animasi
+"use client";
 
 import Link from "next/link";
-import Image from "next/image"; // Impor Image untuk gambar latar
-import { motion, Variants } from "framer-motion"; // Impor Framer Motion
+import Image from "next/image";
+import { motion, Variants } from "framer-motion";
 
-// SVG Ikon untuk tombol Hubungi Kami
-const PhoneIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+// Ikon untuk tombol, kita buat lebih generik jika ingin dipakai di tempat lain
+const ArrowRightIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
     </svg>
 );
 
-// Definisi animasi untuk pembungkus
+// Varian animasi untuk container utama
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: {
-            staggerChildren: 0.3, // Jeda antar animasi anak
-        },
+        transition: { staggerChildren: 0.25 }, // Jeda antar animasi anak sedikit lebih cepat
     },
 };
 
-// Definisi animasi untuk setiap item
+// INI YANG BENAR
 const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
         y: 0,
         opacity: 1,
         transition: {
-            duration: 0.8,
-            ease: "easeOut",
+            duration: 0.6,
+            ease: "circOut", // <-- Gunakan nama easing standar yang elegan
         },
     },
 };
 
 export default function Hero() {
+    // URL WhatsApp (bisa juga diambil dari Sanity nanti)
+    const whatsappUrl = "https://wa.me/6281216080845?text=Halo,%20saya%20tertarik%20dengan%20Koperasi%20Merah%20Putih.";
+
     return (
-        <section 
-            className="relative min-h-screen flex items-center justify-center bg-cover bg-center text-white overflow-hidden"
-        >
-            {/* Gambar Latar dengan Animasi Zoom */}
+        <section className="relative h-screen flex items-center justify-center text-white overflow-hidden">
+            
+            {/* Gambar Latar dengan Animasi Zoom yang Lebih Halus */}
             <motion.div
                 className="absolute inset-0 z-0"
-                initial={{ scale: 1 }}
-                animate={{ scale: 1.1 }}
-                transition={{ duration: 25, ease: "easeInOut" }}
+                initial={{ scale: 1.05 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 10, ease: "easeInOut" }}
             >
                 <Image
-                    src="/pesanggrahan.jpg"
-                    alt="Latar belakang Desa Pesanggrahan"
+                    src="/pesanggrahan.jpg" // Ganti dengan gambar yang lebih relevan dengan koperasi jika ada
+                    alt="Latar Belakang Koperasi Merah Putih"
                     fill
                     priority
                     className="object-cover"
                 />
             </motion.div>
 
-            {/* Overlay Gelap */}
-            <div className="absolute inset-0 bg-black/60 z-0"></div>
+            {/* Overlay Gradien yang Lebih Elegan */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent z-0"></div>
 
             {/* Konten Teks dengan Animasi */}
             <motion.div 
@@ -67,41 +66,39 @@ export default function Hero() {
                 initial="hidden"
                 animate="visible"
             >
-                {/* Gaya font dan teks Anda tidak diubah sama sekali */}
                 <motion.h1 
                     variants={itemVariants}
-                    className="text-4xl md:text-6xl font-extrabold tracking-tight"
+                    className="text-4xl md:text-6xl lg:text-6xl font-extrabold tracking-tight text-shadow-md" // Tambah text-shadow
                 >
-                    Selamat Datang di
-                    <span className="block mt-2 text-red-500">Desa
-                        <span className="text-red-500"> Pesanggrahan</span>
-                    </span>
+                    Koperasi Merah Putih
+                    <span className="block mt-2 text-red-500">Desa Pesanggrahan</span>
                 </motion.h1>
                 
                 <motion.p 
                     variants={itemVariants}
-                    className="mt-8 text-base md:text-lg font-light max-w-2xl mx-auto"
+                    className="mt-6 text-base md:text-lg font-light max-w-2xl mx-auto text-gray-200 text-shadow"
                 >
-                    Desa yang indah dengan kearifan lokal dan potensi alam yang melimpah, menuju masa depan yang berkelanjutan.
+                    Koperasi Merah Putih adalah motor penggerak ekonomi Desa Pesanggrahan, memberdayakan anggota melalui produk dan layanan yang inovatif.
                 </motion.p>
 
                 <motion.div 
                     variants={itemVariants}
-                    className="mt-12 flex flex-wrap justify-center gap-4"
+                    className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4"
                 >
                     <Link 
-                        href="/tentang-kami" 
-                        className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-lg hover:bg-red-700 transition-all duration-300 transform hover:scale-105 flex items-center"
+                        href="/produk" 
+                        className="px-8 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-lg hover:bg-red-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center w-full sm:w-auto"
                     >
-                        Tentang Desa →
+                        Lihat Produk Kami
+                        <ArrowRightIcon />
                     </Link>
                     <Link 
-                        href="https://wa.me/6281216080845?text=Halo,%20saya%20ingin%20bertanya%20tentang%20Desa%20Pesanggrahan." 
-                        target="_blank" // Membuka di tab baru, penting untuk WhatsApp Web
-                        rel="noopener noreferrer" // Praktik keamanan untuk link eksternal
-                        className="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg shadow-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 flex items-center">
-                        <PhoneIcon />
-                        Hubungi Kami
+                        href={whatsappUrl} 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-8 py-3 bg-white/10 border-2 border-white/50 text-white font-semibold rounded-lg shadow-lg backdrop-blur-sm hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+                    >
+                        Hubungi Pengurus
                     </Link>
                 </motion.div>
             </motion.div>
