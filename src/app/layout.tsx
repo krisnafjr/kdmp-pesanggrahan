@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Lato, Merriweather } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar"; // Impor Navbar
 import Footer from "@/components/Footer";
 
 const lato = Lato({
@@ -32,8 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className={`${lato.variable} ${merriweather.variable} font-sans`}>
-        {children}
+      <body className={`${lato.variable} ${merriweather.variable} font-sans bg-gray-50`}>
+        <Navbar />
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
