@@ -10,7 +10,6 @@ import Image from "next/image";
 const MenuIcon = () => ( <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg> );
 const CloseIcon = () => ( <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg> );
 
-// Navbar tidak lagi menerima props { settings }
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -45,18 +44,18 @@ export default function Navbar() {
                 <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
                     <Link href="/" className="flex items-center gap-2.5">
                         <Image 
-                            src="/kutorejo.png" // Mengambil logo dari folder /public
+                            src="/kutorejo.png"
                             width={40} 
                             height={40} 
                             alt="Logo Koperasi"
                             className="transition-transform duration-300 hover:scale-110"
                         />
-                        <span className={`text-l font-semibold transition-colors duration-300 ${scrolled || pathname !== '/' ? 'text-slate-800' : 'text-white'}`}>
-                            KMP Pesanggrahan {/* Judul di-hardcode langsung di sini */}
+                        <span className={`text-xl font-semibold transition-colors duration-300 ${scrolled || pathname !== '/' ? 'text-slate-800' : 'text-white'}`}>
+                            KMP Pesanggrahan
                         </span>
                     </Link>
 
-                    {/* Sisa kode navigasi desktop dan mobile tetap sama */}
+                    {/* Navigasi Desktop */}
                     <div className="hidden md:flex items-center gap-8">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href;
@@ -67,8 +66,14 @@ export default function Navbar() {
                                 </Link>
                             );
                         })}
+                        
+                        {/* === Tombol Login Admin (Desktop) === */}
+                        <Link href="/studio" className={`ml-4 px-4 py-2 text-sm font-semibold rounded-md transition-colors duration-300 ${scrolled || pathname !== '/' ? 'bg-red-50 text-red-600 hover:bg-red-100' : 'bg-white/20 text-white hover:bg-white/30'}`}>
+                            Login Admin
+                        </Link>
                     </div>
 
+                    {/* Tombol Hamburger (Mobile) */}
                     <div className="md:hidden">
                         <button onClick={() => setIsOpen(!isOpen)} className={`transition-colors duration-300 ${scrolled || pathname !== '/' ? 'text-slate-800' : 'text-white'}`}>
                             {isOpen ? <CloseIcon /> : <MenuIcon />}
@@ -77,6 +82,7 @@ export default function Navbar() {
                 </nav>
             </header>
 
+            {/* Menu Mobile */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -107,6 +113,12 @@ export default function Navbar() {
                                         </Link>
                                     </motion.div>
                                 ))}
+                                {/* === Link Login Admin (Mobile) === */}
+                                <motion.div variants={menuItemVariants} className="border-t pt-8 mt-4">
+                                     <Link href="/studio" onClick={() => setIsOpen(false)} className="text-base text-slate-600 hover:text-red-600">
+                                        Login Admin
+                                    </Link>
+                                </motion.div>
                             </motion.div>
                         </motion.div>
                     </motion.div>
