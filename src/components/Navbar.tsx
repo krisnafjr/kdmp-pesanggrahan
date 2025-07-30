@@ -51,7 +51,7 @@ export default function Navbar() {
                             className="transition-transform duration-300 hover:scale-110"
                         />
                         <span className={`text-xl font-semibold transition-colors duration-300 ${scrolled || pathname !== '/' ? 'text-slate-800' : 'text-white'}`}>
-                            KMP Pesanggrahan
+                            KDMP Pesanggrahan
                         </span>
                     </Link>
 
