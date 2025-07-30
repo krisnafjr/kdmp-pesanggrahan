@@ -71,7 +71,7 @@ export default function Hero() {
                     className="text-4xl md:text-6xl lg:text-6xl font-extrabold tracking-tight text-shadow-md" // Tambah text-shadow
                 >
                     Koperasi Merah Putih
-                    <span className="block mt-2 text-red-500">Desa Pesanggrahan</span>
+                    <span className="block mt-2 text-red-500">Desa Merah Putih Kecamatan Kutorejo</span>
                 </motion.h1>
                 
                 <motion.p 
