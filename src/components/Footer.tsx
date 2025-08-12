@@ -68,7 +68,7 @@ export default function Footer() {
                 {/* Garis Pemisah & Copyright */}
                 <div className="mt-12 border-t border-gray-700 pt-6 text-center">
                     <p className="text-gray-500 text-sm">
-                        &copy; {new Date().getFullYear()} Koperasi Merah Putih. All Rights Reserved.
+                        &copy; {new Date().getFullYear()} KKN Untag R28. All Rights Reserved.
                     </p>
                 </div>
             </div>
